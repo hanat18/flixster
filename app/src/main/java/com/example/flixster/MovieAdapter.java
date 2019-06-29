@@ -26,7 +26,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     // config needed for image urls
     Config config;
     Context context;
-    String imageUrl;
     int placeholderId;
     ImageView imageView;
 
@@ -74,7 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         boolean isPortrait = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 
         // build url for the poster image
-        imageUrl = null;
+        String imageUrl = null;
 
         // if in portrait mode, load the poster image
         if(isPortrait){
@@ -140,7 +139,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 // pass over the image to the new activity
-                intent.putExtra("imageUrl", imageUrl);
+                intent.putExtra("imageUrl", config.getImageUrl(config.getPosterSize(), movie.getPosterPath()));
                 // show the activity
                 context.startActivity(intent);
             }
